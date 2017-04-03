@@ -76,7 +76,7 @@
 ;; show column number
 (column-number-mode t)
 
-;; set word wrap - good for splitting screen using C-x 2 and C-x 3 (C-x 1 will remove them) 
+;; set word wrap - good for splitting screen using C-x 2 and C-x 3 (C-x 1 will remove them)
 (setq truncate-partial-width-windows nil)
 
 ;; last lines should end in a carriage return
@@ -90,9 +90,16 @@
 
 ;; Marmalade marmalade-repo.org
 (require 'package)
-(add-to-list 'package-archives 
+(add-to-list 'package-archives
     '("marmalade" .
       "http://marmalade-repo.org/packages/"))
+
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+
 (package-initialize)
 
 ;; Comment/Uncomment Region or Line
@@ -151,11 +158,11 @@
 
 ;; Set tab width
 ;; (setq tab-width 4)
-(setq default-tab-width 4)
+(setq default-tab-width 2)
 ;; (setq c-basic-offset 4)
 
-;; set tab stops at intervals of 4 with a max of 200
-(setq tab-stop-list (number-sequence 4 200 4))
+;; set tab stops at intervals of 2 with a max of 200
+(setq tab-stop-list (number-sequence 2 200 2))
 
 ;; textmate settings
 ;; textmate skeleton-pairs snippet
@@ -204,10 +211,9 @@
 (global-set-key (kbd "C-c f") 'forward-whitespace)
 
 ;; multiple-cursors set up
-(require 'load-directory)
-;;(load-directory "~/.emacs.d/lisp/multiple_cursors/multiple-cursors.el")
-(require 'multiple-cursors)
-;; When you have an active region that spans multiple lines, the following will add a cursor to each line:
+;; (require 'load-directory)
+;; (require 'multiple-cursors) ;; no longer needed to load? 2017-04-03
+;; ;; When you have an active region that spans multiple lines, the following will add a cursor to each line:
 (global-set-key (kbd "C-c a") 'mc/edit-lines)
 ;; When you want to add multiple cursors not based on continuous lines, but based on keywords in the buffer, use:
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -383,7 +389,7 @@ block of text to tmux buffer."
 
 ;; etags-select plugin
 ;; zzz (require 'etags-select)
-;; bind this to 
+;; bind this to
 ;; (defun my-find-tag ()
 ;;     (interactive)
 ;;       (if (file-exists-p (concat (eproject-root) "TAGS"))
