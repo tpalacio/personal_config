@@ -1,0 +1,2 @@
+clear && read -p "Table name?
+" TABLENAME && echo -e $TABLENAME":" > ~/postgres_describe_table.tmp && echo "select c, data_type from public.columns where st = '$TABLENAME';" > table_name.tmp && psql -h cruncher-test.csi15pteagfe.us-east-1.redshift.amazonaws.com -U crunchermaster -d cruncher_production -p 5439 -X -t -f table_name.tmp >> ~/postgres_describe_table.tmp && clear && less ~/postgres_describe_table.tmp && rm ~/postgres_describe_table.tmp
