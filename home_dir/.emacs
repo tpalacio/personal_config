@@ -3,6 +3,8 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
 (normal-top-level-add-subdirs-to-load-path))
 
+;; (byte-recompile-directory "~/.emacs.d/elpa/" nil 'force) ;; uncomment this to recompile all .el files 
+
 ;; split window
 (global-set-key (kbd "\C-x _") 'split-window-vertically)
 (global-set-key (kbd "\C-x |") 'split-window-horizontally)
