@@ -3,7 +3,14 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        backward-whitespace
         forward-whitespace
+        kill-region
+        kill-to-start-of-word-or-line
+        move-over-bracket
+        move-over-quote
+        skeleton-pair-insert-maybe
+        tab-to-tab-stop
         ))
 
 (setq mc/cmds-to-run-once
