@@ -1,7 +1,6 @@
--- vertica specific
-SET SESSION AUTOCOMMIT = ON;
-SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public; --, "$user";
-
+-- SET SESSION AUTOCOMMIT = ON;
+-- SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public; --, "$user";
+SET SEARCH_PATH = public, venmo_warehouse, data_prep, analytics_etl, product_prep, looker_scratch, venmo_product
 
 -- default format settings -- timing format is a little different in psql
 -- \set pager '\\pset pager'
@@ -15,15 +14,16 @@ SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public; --, "$user";
 :align_default
 \set HISTCONTROL ignoredups
 
--- key bindings
-\bind ^W backward-delete-word
+-- -- key bindings
+-- \bind ^W backward-delete-word
 
 -- other settings
--- \set PROMPT1 '(%n@%M:%>) [%/] %:output:%x> '
--- \set PROMPT1 'vertica [%/] %:output:%x> '
-\set PROMPT1 'vertica [%/] %:expanded:%:output:%x> '
--- \set PROMPT2 '%:output:%x> ' --the output variable is set by o_start
-\set PROMPT2 '%:expanded:%:output:%x> ' --the output variable is set by o_start
+\set PROMPT1 '%m [%/] %:output:%x> '
+-- \set PROMPT1 'redshift [%/] %:output:%x> '
+-- \set PROMPT1 'redshift [%/] %:expanded:%:output:%x> '
+\set PROMPT2 '>'
+-- \set PROMPT2 '%:output:%x> ' -- the output variable is set by o_start
+-- \set PROMPT2 '%:expanded:%:output:%x> ' -- the output variable is set by o_start
 \set HISTSIZE 2000
 
 -- output settings
@@ -34,4 +34,4 @@ SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public; --, "$user";
 \set xon '\\set expanded expanded_display> \\x'
 \set xoff '\\unset expanded \\x'
 
-\set i `echo "\! source ~/execute_query_with_email.sh" ` ' ' :USER
+\set i `echo "\! source ~/execute_query_with_email.sh" ` ' '
