@@ -18,7 +18,7 @@ SET SEARCH_PATH = public, venmo_warehouse, data_prep, analytics_etl, product_pre
 -- \bind ^W backward-delete-word
 
 -- other settings
-\set PROMPT1 '%m [%/] %:output:%x> '
+\set PROMPT1 '%m [%n - %/] %:output:%x> '
 -- \set PROMPT1 'redshift [%/] %:output:%x> '
 -- \set PROMPT1 'redshift [%/] %:expanded:%:output:%x> '
 \set PROMPT2 '>'
