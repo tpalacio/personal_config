@@ -3,8 +3,6 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
 (normal-top-level-add-subdirs-to-load-path))
 
-;; (byte-recompile-directory "~/.emacs.d/elpa/" nil 'force) ;; uncomment this to recompile all .el files
-
 ;; split window
 (global-set-key (kbd "\C-x _") 'split-window-vertically)
 (global-set-key (kbd "\C-x |") 'split-window-horizontally)
@@ -63,7 +61,7 @@
 (delete-selection-mode 1)
 
 ;; Deletes trailing whitespace when saving
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Set Linum-Mode on
 ;; (require 'linum)
@@ -91,17 +89,37 @@
 ;; (follow-mode t)
 
 ;; Marmalade marmalade-repo.org
+;; (require 'package)
+;; (add-to-list 'package-archives
+;;     '("marmalade" .
+;;       "http://marmalade-repo.org/packages/"))
+
+;; old melpa
+;; (add-to-list 'package-archives
+;;              '("melpa" . "https://melpa.org/packages/"))
+;; (when (< emacs-major-version 24)
+;;   ;; For important compatibility libraries like cl-lib
+;;   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+;; (package-initialize)
+
+;; new melpa
 (require 'package)
-(add-to-list 'package-archives
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
-
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl
+    (warn "\
+Your version of Emacs does not support SSL connections,
+which is unsafe because it allows man-in-the-middle attacks.
+There are two things you can do about this warning:
+1. Install an Emacs version that does support SSL and be safe.
+2. Remove this warning from your init file so you won't see it again."))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
 ;; Comment/Uncomment Region or Line
@@ -160,11 +178,11 @@
 
 ;; Set tab width
 ;; (setq tab-width 4)
-(setq default-tab-width 2)
+(setq default-tab-width 4)
 ;; (setq c-basic-offset 4)
 
 ;; set tab stops at intervals of 2 with a max of 200
-(setq tab-stop-list (number-sequence 2 200 2))
+(setq tab-stop-list (number-sequence 4 200 4))
 
 ;; textmate settings
 ;; textmate skeleton-pairs snippet
@@ -336,7 +354,8 @@
 
 (define-key global-map (kbd "M-]") 'shift-right)
 
-(define-key global-map (kbd "M-[") 'shift-left)
+;; (define-key global-map (kbd "M-[") 'shift-left) ;; had to remove this for local OSX instance because it was pasting additional `200~ 201~` characters from local clipboard
+(define-key global-map (kbd "M-p") 'shift-left)
 
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -378,9 +397,9 @@ block of text to tmux buffer."
 (put 'downcase-region 'disabled nil)
 
 ;; org-mode stuff
-(require 'org-install)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
+;; (require 'org-install)
+;; (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;; (define-key global-map "\C-cl" 'org-store-link)
 ;; (define-key global-map "\C-ca" 'org-agenda)
 ;; (setq org-log-done t)
 
@@ -534,25 +553,44 @@ Version 2015-03-24"
 (global-unset-key "\C-x;")
 (global-set-key "\C-x;" 'jump-backward-semicolon)
 
-;; CamelCase to under_score
-;; (defun to-underscore () (interactive) (progn (replace-regexp "\\([A-Z]\\)" "_\\1" nil (region-beginning) (region-end)) (downcase-region (region-beginning) (region-end))) )
-;; (global-set-key (kbd "C-c _") 'to-underscore)
+;; turn off auto indent mode
+(when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (auto-complete dumb-jump slime multiple-cursors color-theme-solarized col-highlight cl-lib ack-and-a-half))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
-(defun toggle-camelcase-underscores ()
-  "Toggle between camelcase and underscore notation for the symbol at point."
-  (interactive)
-  (save-excursion
-    (let* ((bounds (bounds-of-thing-at-point 'symbol))
-           (start (car bounds))
-           (end (cdr bounds))
-           (currently-using-underscores-p (progn (goto-char start)
-                                                 (re-search-forward "_" end t))))
-      (if currently-using-underscores-p
-          (progn
-            (upcase-initials-region start end)
-            (replace-string "_" "" nil start end)
-            (downcase-region start (1+ start)))
-        (replace-regexp "\\([A-Z]\\)" "_\\1" nil (1+ start) end)
-        (downcase-region start (cdr (bounds-of-thing-at-point 'symbol)))))))
-(global-set-key (kbd "C-c _") 'toggle-camelcase-underscores)
-(global-set-key (kbd "C-c -") 'toggle-camelcase-underscores)
+;; add dumb-jump key bindings
+;; (dumb-jump-mode) -- default mappings werent working
+(global-set-key (kbd "C-c g") 'dumb-jump-go)
+(global-set-key (kbd "C-c p") 'dumb-jump-back)
+
+;; hide/show a block of code (based on pair of balanced-expression code blocks or multi-line comment blocks)
+    (defun toggle-hiding (column)
+      (interactive "P")
+      (hs-minor-mode)
+      (hs-toggle-hiding)
+    )
+;; set up key binding
+    (global-set-key (kbd "C-c h") 'toggle-hiding)
+
+;; auto-complete
+(require 'auto-complete)
+(auto-complete-mode)
+(ac-config-default)
+
+;;keep cursor at same position when scrolling
+(setq scroll-preserve-screen-position 1)
+;;scroll window up/down by one line
+(global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
+(global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
