@@ -589,10 +589,14 @@ Version 2015-03-24"
 (auto-complete-mode)
 (ac-config-default)
 
-;;keep cursor at same position when scrolling
+;; keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
 ;;scroll window up/down by one line
 ;; (global-set-key (kbd "ESC <down>") (kbd "C-u 1 C-v"))
 ;; (global-set-key (kbd "ESC <up>") (kbd "C-u 1 M-v"))
 (global-set-key (kbd "<down>") (kbd "C-u 1 C-v"))
 (global-set-key (kbd "<up>") (kbd "C-u 1 M-v"))
+
+;; add back the up and down functionality with ESC-
+(global-set-key (kbd "ESC <down>") (kbd "C-n"))
+(global-set-key (kbd "ESC <up>") (kbd "C-p"))
