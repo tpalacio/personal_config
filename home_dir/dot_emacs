@@ -591,12 +591,39 @@ Version 2015-03-24"
 
 ;; keep cursor at same position when scrolling
 (setq scroll-preserve-screen-position 1)
-;;scroll window up/down by one line
-;; (global-set-key (kbd "ESC <down>") (kbd "C-u 1 C-v"))
-;; (global-set-key (kbd "ESC <up>") (kbd "C-u 1 M-v"))
-(global-set-key (kbd "<down>") (kbd "C-u 1 C-v"))
-(global-set-key (kbd "<up>") (kbd "C-u 1 M-v"))
+;; scroll window up/down by one line
+(global-set-key (kbd "ESC <down>") (kbd "C-u 1 C-v"))
+(global-set-key (kbd "ESC <up>") (kbd "C-u 1 M-v"))
 
-;; add back the up and down functionality with ESC-
-(global-set-key (kbd "ESC <down>") (kbd "C-n"))
-(global-set-key (kbd "ESC <up>") (kbd "C-p"))
+;; turns out im not a fan of this as default
+;; (global-set-key (kbd "<down>") (kbd "C-u 1 C-v"))
+;; (global-set-key (kbd "<up>") (kbd "C-u 1 M-v"))
+;;
+;; ;; add back the up and down functionality with ESC-
+;; (global-set-key (kbd "ESC <down>") (kbd "C-n"))
+;; (global-set-key (kbd "ESC <up>") (kbd "C-p"))
+
+;; lowercase file expect quoted strings
+(defun my/lowercase-non-strings ()
+  "Lowercase all except strings.
+
+Ignores both single- and double-quoted strings. If the buffer's
+current major mode defines other things to be strings, they will
+be ignored, too."
+  (interactive)
+  (let* ((old-syntax-table (syntax-table))
+         (new-syntax-table (make-syntax-table old-syntax-table)))
+    (modify-syntax-entry ?\" "\"   " new-syntax-table)
+    (modify-syntax-entry ?\' "\"   " new-syntax-table)
+    (with-syntax-table new-syntax-table
+      (save-excursion
+        (goto-char (point-min))
+        (while (< (point) (point-max))
+          (while (and (< (point) (point-max))
+                      (nth 3 (syntax-ppss (point)))) ;in string
+            (goto-char (1+ (point))))
+          (let ((start (point)))
+            (while (and (< (point) (point-max))
+                        (not (nth 3 (syntax-ppss (point))))) ;not in string
+              (goto-char (1+ (point))))
+            (downcase-region start (point))))))))
