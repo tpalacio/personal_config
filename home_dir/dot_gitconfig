@@ -1,0 +1,22 @@
+[alias]
+    test = !ls /Users/$(whoami)
+    l = "!source ~/.githelpers && pretty_git_log"
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    aa = add --all
+    ci = commit
+    b = branch
+    co = checkout
+    s = status
+    uncommit = reset --soft HEAD^
+    fa = fetch --all
+[commit]
+    template = ~/.git_commit_msg.txt
+[github]
+    user = tpalacio
+[user]
+	email = thoren.palacio@venmo.com
+	name = Thoren Palacio
+[push]
+	default = upstream
+[merge]
+	conflictstyle = diff3
