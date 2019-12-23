@@ -1,0 +1,32 @@
+alias vi=emacs
+alias mysql='mysql -glossier.address.com -utpalacio -pSomePassword -Ddatabase -A'
+alias dw='psql -h production-redshift-primary.venmo.biz -U thorenpalacio -d dev -p 5439'
+alias dw_root='psql -h production-redshift-primary.venmo.biz -U root -d dev -p 5439'
+alias dw_analytics='psql -h production-redshift-primary.venmo.biz -U analytics_admin -d dev -p 5439'
+alias dw_dbt='psql -h production-redshift-primary.venmo.biz -U dbt -d dev -p 5439'
+alias dw_test='psql -h redshift-cluster.cgbnyotnbhso.us-east-1.redshift.amazonaws.com -U root -d dev -p 5439'
+
+alias e='emacs'
+alias emacs='emacs -nw'
+alias lisp='cd ~/.emacs.d/lisp'
+alias cd..='cd ..'
+alias now='date'
+alias rmate='mate'
+alias ssh_data='ssh -R 12345:localhost:12345'
+alias ssh_b='ssh -A bastion.venmo.biz'
+alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
+alias snow='snowsql -c thoren'
+# alias python=python3.6
+# alias pip=pip3.6
+alias mate='~/bin/mate -w'
+# alias subl='open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias subl='/usr/local/bin/sublime -w'
+
+# make ls pretty
+_myos="$(uname)"
+
+case $_myos in
+  Linux) alias ls='ls --color';;
+  Darwin) alias ls='ls -G';;
+  *) ;;
+esac
