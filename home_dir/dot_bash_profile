@@ -12,8 +12,9 @@ fi
 
 # export EDITOR='rmate -w'
 # export EDITOR='/usr/local/bin/sublime -w'
-export EDITOR='/usr/bin/emacs -nw'
-export GIT_EDITOR='/usr/bin/emacs -nw'
+
+export EDITOR='/usr/local/bin/emacs -nw'
+export GIT_EDITOR='/usr/local/bin/emacs -nw'
 
 PATH=$PATH:$HOME/bin:/usr/local/lib
 
