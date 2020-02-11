@@ -18,9 +18,10 @@ alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
 alias snow='snowsql -c thoren'
 # alias python=python3.6
 # alias pip=pip3.6
-alias mate='~/bin/mate -w'
+alias mate='/usr/local/bin/mate -w'
 # alias subl='open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias subl='/usr/local/bin/sublime -w'
+alias cddbt='cd ~/src/venmo-dbt'
 
 # make ls pretty
 _myos="$(uname)"
