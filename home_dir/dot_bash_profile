@@ -49,3 +49,6 @@ export PS1="$blue\u $purple@ \h$green\$(__git_ps1)$blue \W $ $reset"
 
 # GitHub Enterprise
 export GITHUB_URL=https://github.braintreeps.com/
+
+# Copy the resulting url to the clipboard
+alias gist='gist -c'
