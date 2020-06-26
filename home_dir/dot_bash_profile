@@ -52,3 +52,14 @@ export GITHUB_URL=https://github.braintreeps.com/
 
 # Copy the resulting url to the clipboard
 alias gist='gist -c'
+
+# Initiate pyenv
+eval "$(pyenv init -)"
+
+# dbt tab completion
+source ~/.dbt-completion.bash
+
+# find and open in emacs
+find_and_open() {
+    find . -type f -iname "*$1*" | xargs emacsclient -nw -a ''
+}
