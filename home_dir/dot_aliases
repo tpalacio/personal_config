@@ -1,6 +1,6 @@
 alias vi=emacs
 alias mysql='mysql -glossier.address.com -utpalacio -pSomePassword -Ddatabase -A'
-alias dw='psql -h production-redshift-primary.venmo.biz -U thorenpalacio -d dev -p 5439'
+alias dw='psql -h production-redshift-primary.venmo.biz -U dbt -d dev -p 5439'
 alias dw_root='psql -h production-redshift-primary.venmo.biz -U root -d dev -p 5439'
 alias dw_analytics='psql -h production-redshift-primary.venmo.biz -U analytics_admin -d dev -p 5439'
 alias dw_dbt='psql -h production-redshift-primary.venmo.biz -U dbt -d dev -p 5439'
@@ -22,6 +22,9 @@ alias mate='/usr/local/bin/mate -w'
 # alias subl='open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias subl='/usr/local/bin/sublime -w'
 alias cddbt='cd ~/src/venmo-dbt'
+alias cdl='cd ~/src/venmo-platform/data/workflows'
+alias gti='git'
+alias gco='git checkout'
 
 # make ls pretty
 _myos="$(uname)"
