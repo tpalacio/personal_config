@@ -7,7 +7,8 @@ alias dw_dbt='psql -h production-redshift-primary.venmo.biz -U dbt -d dev -p 543
 alias dw_test='psql -h redshift-cluster.cgbnyotnbhso.us-east-1.redshift.amazonaws.com -U root -d dev -p 5439'
 
 alias e='emacs'
-alias emacs='emacs -nw'
+# alias emacs='emacs -nw'
+alias emacs="emacsclient -nw -a ''"
 alias lisp='cd ~/.emacs.d/lisp'
 alias cd..='cd ..'
 alias now='date'
@@ -25,6 +26,7 @@ alias cddbt='cd ~/src/venmo-dbt'
 alias cdl='cd ~/src/venmo-platform/data/workflows'
 alias gti='git'
 alias gco='git checkout'
+alias fao='find_and_open'
 
 # make ls pretty
 _myos="$(uname)"

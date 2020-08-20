@@ -26,9 +26,20 @@ export PATH
 export PAGER=less
 export LESS="-iMSx4 -RX" # removed "-F" because it was killing some custom tmux features (vertica table search, current processes) # removed "-e" which is useful but i trigger it accidentally too often # ---X is important for making sure LESS does not clear screen after it outputs paginated results from things like vertica
 
+# Save 5,000 lines of history in memory
 HISTSIZE=5000
-ISTFILESIZE=5000
-HISTCONTROL=ignoredups
+# Save 2,000,000 lines of history to disk (will have to grep ~/.bash_history for full listing)
+HISTFILESIZE=2000000
+# Ignore redundant or space commands
+HISTCONTROL=ignoreboth
+# Append to history instead of overwrite
+shopt -s histappend
+# Ignore more
+HISTIGNORE='ls:ll:ls -alh:pwd:clear:history'
+# Set time format
+HISTTIMEFORMAT='%F %T '
+# Multiple commands on one line show up as a single line
+shopt -s cmdhist
 
 # Enable tab completion
 source ~/git-completion.bash
