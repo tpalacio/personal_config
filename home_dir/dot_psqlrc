@@ -1,6 +1,6 @@
 -- SET SESSION AUTOCOMMIT = ON;
 -- SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public; --, "$user";
-SET SEARCH_PATH = public, venmo_warehouse, data_prep, analytics_etl, product_prep, looker_scratch, venmo_product
+SET SEARCH_PATH = public, popshop, analytics, dbt_thoren
 
 -- default format settings -- timing format is a little different in psql
 -- \set pager '\\pset pager'
