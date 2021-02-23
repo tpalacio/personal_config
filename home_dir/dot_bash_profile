@@ -13,8 +13,8 @@ fi
 # export EDITOR='rmate -w'
 # export EDITOR='/usr/local/bin/sublime -w'
 
-export EDITOR='/usr/local/bin/emacs -nw'
-export GIT_EDITOR='/usr/local/bin/emacs -nw'
+export EDITOR='emacs -nw'
+export GIT_EDITOR='emacs -nw'
 
 PATH=$PATH:$HOME/bin:/usr/local/lib
 
@@ -64,10 +64,7 @@ export GITHUB_URL=https://github.braintreeps.com/
 # Copy the resulting url to the clipboard
 alias gist='gist -c'
 
-# # Initiate pyenv
-# eval "$(pyenv init -)"
-
-# # dbt tab completion
+# dbt tab completion
 # source ~/.dbt-completion.bash
 
 # find and open in emacs
@@ -75,9 +72,5 @@ find_and_open() {
     find . -type f -iname "*$1*" | xargs emacsclient -nw -a ''
 }
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/thoren/google-cloud-sdk/path.bash.inc' ]; then . '/Users/thoren/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/thoren/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/thoren/google-cloud-sdk/completion.bash.inc'; fi
-source ~/.dbt-completion.bash
+# add brew to path
+eval $(/opt/homebrew/bin/brew shellenv)
