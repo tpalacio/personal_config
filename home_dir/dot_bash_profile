@@ -16,7 +16,7 @@ fi
 export EDITOR='emacs -nw'
 export GIT_EDITOR='emacs -nw'
 
-PATH=$PATH:$HOME/bin:/usr/local/lib
+PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/.local/bin
 
 export PATH
 
@@ -59,10 +59,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export PS1="$blue\u $purple@ \h$green\$(__git_ps1)$blue \W $ $reset"
 
 # GitHub Enterprise
-export GITHUB_URL=https://github.braintreeps.com/
-
-# Copy the resulting url to the clipboard
-alias gist='gist -c'
+# export GITHUB_URL=https://github.braintreeps.com/
 
 # dbt tab completion
 # source ~/.dbt-completion.bash
@@ -71,6 +68,3 @@ alias gist='gist -c'
 find_and_open() {
     find . -type f -iname "*$1*" | xargs emacsclient -nw -a ''
 }
-
-# add brew to path
-eval $(/opt/homebrew/bin/brew shellenv)
