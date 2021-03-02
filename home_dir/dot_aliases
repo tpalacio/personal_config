@@ -8,7 +8,8 @@ alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
 
 alias e='emacs'
 # alias emacs='emacs -nw'
-alias emacs="emacsclient -nw -a ''"
+# alias emacs="emacsclient -nw -a ''"
+alias emacs="emacsclient -nw"
 alias lisp='cd ~/.emacs.d/lisp'
 alias cd..='cd ..'
 alias now='date'
@@ -36,3 +37,6 @@ case $_myos in
   Darwin) alias ls='ls -G';;
   *) ;;
 esac
+
+alias env_dbt='source dbt-env/bin/activate'
+alias ssh_dbt='ssh thoren@34.121.208.41'
