@@ -19,7 +19,7 @@ export GIT_EDITOR='emacs -nw'
 # should be same as passing -a '' https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR=""
 
-PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin
+PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin:/home/thoren/.local/bin:$PATH
 
 export PATH
 
