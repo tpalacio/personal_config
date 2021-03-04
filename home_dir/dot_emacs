@@ -630,3 +630,4 @@ be ignored, too."
 ;; projectile file search
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(global-set-key (kbd "C-c C-f") 'projectile-find-file-dwim-other-window)
