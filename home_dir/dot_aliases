@@ -34,7 +34,7 @@ case $_myos in
   Darwin) alias ls='ls -G'\
   # support text editors
   alias rmate='mate'\
-  alias mate='/usr/local/bin/mate -w';;
-  alias subl='/usr/local/bin/sublime -w'
+  alias mate='/usr/local/bin/mate -w'\
+  alias subl='/usr/local/bin/sublime -w';;
   *) ;;
 esac
