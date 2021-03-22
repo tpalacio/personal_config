@@ -4,6 +4,7 @@ alias mysql='mysql -glossier.address.com -utpalacio -pSomePassword -Ddatabase -A
 alias dw_dbt='psql -h 35.238.34.76 -U dbt -d popshoplive-26f81-prod0 -p 5432'
 alias dw_root='psql -h 35.238.34.76 -U popsql -d popshoplive-26f81-prod0 -p 5432'
 alias dw_thoren='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
+alias dw_segment='psql -h 35.238.34.76 -U segment -d popshoplive-26f81-prod0 -p 5432'
 alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
 
 alias e='emacs'
