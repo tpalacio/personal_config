@@ -81,6 +81,11 @@ find_and_open() {
     find . -type f \( -iname "*$1*" ! -iname "*.yml" \) | xargs emacsclient -nw -a ''
 }
 
+# find and open yaml in emacs
+find_and_open_yaml() {
+    ack --type yaml -l "$1" | xargs emacsclient -nw -a ''
+}
+
 
 # add brew to path
 if [[ $(uname -s) == Darwin ]]
