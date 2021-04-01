@@ -74,11 +74,11 @@ case $_myos in
 esac
 
 # dbt tab completion
-# source ~/.dbt-completion.bash
+source ~/.dbt-completion.bash
 
 # find and open in emacs
 find_and_open() {
-    find . -type f -iname "*$1*" | xargs emacsclient -nw -a ''
+    find . -type f \( -iname "*$1*" ! -iname "*.yml" \) | xargs emacsclient -nw -a ''
 }
 
 
