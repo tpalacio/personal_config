@@ -647,4 +647,4 @@ be ignored, too."
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
 
-(define-key ctl-x-4-map "t" 'toggle-window-split)
+(define-key global-map (kbd "C-x t") 'toggle-window-split)
