@@ -23,11 +23,11 @@ PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin:/home/thoren/.l
 
 export PATH
 
-# Vertica is defaulting to show LESS when printing results which can't be copied via tmux
+# psql is defaulting to show LESS when printing results which can't be copied via tmux
 
 # export PAGER=/bin/more
 export PAGER=less
-export LESS="-iMSx4 -RX" # removed "-F" because it was killing some custom tmux features (vertica table search, current processes) # removed "-e" which is useful but i trigger it accidentally too often # ---X is important for making sure LESS does not clear screen after it outputs paginated results from things like vertica
+export LESS="-iMSx4 -RX" # removed "-F" because it was killing some custom tmux features (psql table search, current processes) # removed "-e" which is useful but i trigger it accidentally too often # ---X is important for making sure LESS does not clear screen after it outputs paginated results from things like psql
 
 # Save 5,000 lines of history in memory
 HISTSIZE=5000
@@ -44,22 +44,21 @@ HISTTIMEFORMAT='%F %T '
 # Multiple commands on one line show up as a single line
 shopt -s cmdhist
 
-# Enable tab completion
-source ~/git-completion.bash
-
+# Change command prompt
+source ~/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
 # colors!
 green="\[\033[0;32m\]"
 blue="\[\033[0;34m\]"
 purple="\[\033[0;35m\]"
 reset="\[\033[0m\]"
-
-# Change command prompt
-source ~/git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=1
 # '\u' adds the name of the current user to the prompt
 # '\$(__git_ps1)' adds git-related stuff
 # '\W' adds the name of the current directory
 export PS1="$blue\u $purple@ \h$green\$(__git_ps1)$blue \W $ $reset"
+
+# Enable tab completion
+source ~/git-completion.bash
 
 # Copy the resulting url to the clipboard
 alias gist='gist -c'
@@ -78,14 +77,14 @@ source ~/.dbt-completion.bash
 
 # find and open in emacs
 find_and_open() {
-    find . -type f \( -iname "*$1*" ! -iname "*.yml" \) | xargs emacsclient -nw -a ''
+    if [[ ${1:0:1} == "^" ]] ; then pattern_match="" && kw="${1:1}"; else pattern_match="*" && kw="$1"; fi
+    find . -type f \( -iname "$pattern_match$kw*" ! -iname "*.yml" \) | xargs emacsclient -nw -a ''
 }
 
 # find and open yaml in emacs
 find_and_open_yaml() {
     ack --type yaml -l "$1" | xargs emacsclient -nw -a ''
 }
-
 
 # add brew to path
 if [[ $(uname -s) == Darwin ]]
