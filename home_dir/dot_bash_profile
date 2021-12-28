@@ -23,11 +23,11 @@ PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin:/home/thoren/.l
 
 export PATH
 
-# Vertica is defaulting to show LESS when printing results which can't be copied via tmux
+# psql is defaulting to show LESS when printing results which can't be copied via tmux
 
 # export PAGER=/bin/more
 export PAGER=less
-export LESS="-iMSx4 -RX" # removed "-F" because it was killing some custom tmux features (vertica table search, current processes) # removed "-e" which is useful but i trigger it accidentally too often # ---X is important for making sure LESS does not clear screen after it outputs paginated results from things like vertica
+export LESS="-iMSx4 -RX" # removed "-F" because it was killing some custom tmux features (psql table search, current processes) # removed "-e" which is useful but i trigger it accidentally too often # ---X is important for making sure LESS does not clear screen after it outputs paginated results from things like psql
 
 # Save 5,000 lines of history in memory
 HISTSIZE=5000
@@ -74,7 +74,7 @@ case $_myos in
 esac
 
 # dbt tab completion
-# source ~/.dbt-completion.bash
+source ~/.dbt-completion.bash
 
 # find and open in emacs
 find_and_open() {
@@ -87,3 +87,6 @@ if [[ $(uname -s) == Darwin ]]
 then
     eval $(/opt/homebrew/bin/brew shellenv)
 fi
+
+# disable apple warning message about zsh
+export BASH_SILENCE_DEPRECATION_WARNING=1
