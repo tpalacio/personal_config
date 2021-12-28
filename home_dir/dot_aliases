@@ -1,30 +1,37 @@
 alias vi=emacs
-alias mysql='mysql -glossier.address.com -utpalacio -pSomePassword -Ddatabase -A'
-
+alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
 alias dw_dbt='psql -h 35.238.34.76 -U dbt -d popshoplive-26f81-prod0 -p 5432'
 alias dw_root='psql -h 35.238.34.76 -U popsql -d popshoplive-26f81-prod0 -p 5432'
 alias dw_thoren='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
-alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
-
+alias dw_segment='psql -h 35.238.34.76 -U segment -d popshoplive-26f81-prod0 -p 5432'
 alias e='emacs'
-# alias emacs='emacs -nw'
 # alias emacs="emacsclient -nw -a ''"
 alias emacs="emacsclient -nw"
 alias lisp='cd ~/.emacs.d/lisp'
 alias cd..='cd ..'
 alias now='date'
-alias rmate='mate'
 alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
 alias snow='snowsql -c thoren'
-# alias python=python3.6
-# alias pip=pip3.6
-alias mate='/usr/local/bin/mate -w'
-# alias subl='open /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-alias subl='/usr/local/bin/sublime -w'
 alias cddbt='cd ~/src/popdbt/models'
-alias cdl='cd ~/src/venmo-platform/data/workflows'
 alias gti='git'
 alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gcm='git checkout master'
 alias fao='find_and_open'
+alias faoy='find_and_open_yaml'
 alias env_dbt='source dbt-env/bin/activate'
 alias ssh_dbt='ssh thoren@34.121.208.41'
+alias tm='tmux new-session -A -s main -c ~/'
+
+# OS specific aliasing
+_myos="$(uname)"
+case $_myos in
+  # make ls pretty
+  Linux) alias ls='ls --color';;
+  Darwin) alias ls='ls -G'\
+  # support text editors
+  alias rmate='mate'\
+  alias mate='/usr/local/bin/mate -w'\
+  alias subl='/usr/local/bin/sublime -w';;
+  *) ;;
+esac

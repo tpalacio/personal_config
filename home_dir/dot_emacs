@@ -403,23 +403,6 @@ block of text to tmux buffer."
 ;; (define-key global-map "\C-ca" 'org-agenda)
 ;; (setq org-log-done t)
 
-;; ctags/etags
-;; specify TAGS table(s)
-;; zzz (setq tags-table-list
-;; zzz '("~/development/BigData"))
-
-;; etags-select plugin
-;; zzz (require 'etags-select)
-;; bind this to
-;; (defun my-find-tag ()
-;;     (interactive)
-;;       (if (file-exists-p (concat (eproject-root) "TAGS"))
-;;                 (visit-project-tags)
-;;             (build-ctags))
-;;         (etags-select-find-tag-at-point))
-
-;; zzz (global-set-key (kbd "C-]") 'etags-select-find-tag-at-point)
-
 ;; transpose windows
 (require 'transpose-frame)
 (define-key global-map (kbd "C-c <left>") 'flop-frame)
@@ -561,7 +544,8 @@ Version 2015-03-24"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(projectile auto-complete dumb-jump slime multiple-cursors color-theme-solarized col-highlight cl-lib ack-and-a-half)))
+   (quote
+    (csv-mode yaml-mode projectile auto-complete dumb-jump slime multiple-cursors color-theme-solarized col-highlight cl-lib ack-and-a-half))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -631,3 +615,36 @@ be ignored, too."
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (global-set-key (kbd "C-c C-f") 'projectile-find-file-dwim-other-window)
+
+;; yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+;; toggle window splits
+;; https://www.emacswiki.org/emacs/ToggleWindowSplit
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+	     (next-win-buffer (window-buffer (next-window)))
+	     (this-win-edges (window-edges (selected-window)))
+	     (next-win-edges (window-edges (next-window)))
+	     (this-win-2nd (not (and (<= (car this-win-edges)
+					 (car next-win-edges))
+				     (<= (cadr this-win-edges)
+					 (cadr next-win-edges)))))
+	     (splitter
+	      (if (= (car this-win-edges)
+		     (car (window-edges (next-window))))
+		  'split-window-horizontally
+		'split-window-vertically)))
+	(delete-other-windows)
+	(let ((first-win (selected-window)))
+	  (funcall splitter)
+	  (if this-win-2nd (other-window 1))
+	  (set-window-buffer (selected-window) this-win-buffer)
+	  (set-window-buffer (next-window) next-win-buffer)
+	  (select-window first-win)
+	  (if this-win-2nd (other-window 1))))))
+
+(define-key global-map (kbd "C-x t") 'toggle-window-split)
