@@ -12,7 +12,7 @@ alias cd..='cd ..'
 alias now='date'
 alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
 alias snow='snowsql -c thoren'
-alias cddbt='cd ~/src/popdbt/models'
+alias cddbt='cd ~/src/aura-dbt/models'
 alias gti='git'
 alias gco='git checkout'
 alias gcb='git checkout -b'
@@ -20,7 +20,7 @@ alias gcm='git checkout master'
 alias fao='find_and_open'
 alias faoy='find_and_open_yaml'
 alias env_dbt='source dbt-env/bin/activate'
-alias ssh_dbt='ssh thoren@34.121.208.41'
+# alias ssh_dbt='ssh thoren@34.121.208.41'
 alias tm='tmux new-session -A -s main -c ~/'
 
 # OS specific aliasing
@@ -30,8 +30,8 @@ case $_myos in
   Linux) alias ls='ls --color';;
   Darwin) alias ls='ls -G'\
   # support text editors
-  alias rmate='mate'\
-  alias mate='/usr/local/bin/mate -w'\
+  alias rmate='mate' &&\
+  alias mate='/usr/local/bin/mate -w' &&\
   alias subl='/usr/local/bin/sublime -w';;
   *) ;;
 esac
