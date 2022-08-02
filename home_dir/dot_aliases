@@ -1,4 +1,5 @@
 alias vi=emacs
+alias python=python3
 alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
 alias dw_dbt='psql -h 35.238.34.76 -U dbt -d popshoplive-26f81-prod0 -p 5432'
 alias dw_root='psql -h 35.238.34.76 -U popsql -d popshoplive-26f81-prod0 -p 5432'
