@@ -1,6 +1,7 @@
 alias vi=emacs
 alias python=python3
-alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
+alias dw=databricks-sql-cli
+# alias dw='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
 alias dw_dbt='psql -h 35.238.34.76 -U dbt -d popshoplive-26f81-prod0 -p 5432'
 alias dw_root='psql -h 35.238.34.76 -U popsql -d popshoplive-26f81-prod0 -p 5432'
 alias dw_thoren='psql -h 35.238.34.76 -U thoren -d popshoplive-26f81-prod0 -p 5432'
@@ -14,6 +15,7 @@ alias now='date'
 alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
 alias snow='snowsql -c thoren'
 alias cddbt='cd ~/src/aura-dbt/models'
+alias cdsql='cd ~/src/data-sql-scripts'
 alias gti='git'
 alias gco='git checkout'
 alias gcb='git checkout -b'
