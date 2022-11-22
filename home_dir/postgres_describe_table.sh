@@ -1,2 +1,6 @@
-clear && read -p "Table name?
-" TABLENAME && echo -e $TABLENAME":" > ~/postgres_describe_table.tmp && echo "select c, data_type from dbt_thoren.columns where st = '$TABLENAME';" > table_name.tmp && psql -h 35.238.34.76 -U popsql -d popshoplive-26f81-prod0 -p 5432 -X -t -f table_name.tmp >> ~/postgres_describe_table.tmp && clear && less ~/postgres_describe_table.tmp ; rm ~/postgres_describe_table.tmp ; rm ~/table_name.tmp
+shopt -s expand_aliases
+source ~/.aliases
+
+dw_root -X -c "select pid, trim(user_name) as "user_name", starttime as start_time, (duration / 1000000) || 's' as duration, query as sql from stv_recents as s where status = \$\$Running\$\$ and query not ilike \$\$%stv_recents%\$\$ order by s.duration desc;" > active_query_results.txt
+
+less active_query_results.txt
