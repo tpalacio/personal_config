@@ -3,7 +3,8 @@ alias python=python3
 # alias dw=databricks-sql-cli
 alias dw='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U thoren -d dev -p 5439'
 alias dw_root='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U root -d dev -p 5439'
-alias dw_dbt='psql -h 35.238.34.76 -U dbt -d popshoplive-26f81-prod0 -p 5432'
+alias dw_dbt='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U dbt_user -d dev -p 5439'
+alias mysql='mysql -tj-aurora.co4b2y8p3rb6.us-east-1.rds.amazonaws.com -u root -D shopify_staging -A'
 alias e='emacs'
 # alias emacs="emacsclient -nw -a ''"
 alias emacs="emacsclient -nw"
@@ -28,8 +29,8 @@ alias tm='tmux new-session -A -s main -c ~/'
 _myos="$(uname)"
 case $_myos in
   # make ls pretty
-  Linux) alias ls='ls --color';;
-  Darwin) alias ls='ls -G'\
+  Linux) alias ls='ls --color -1';;
+  Darwin) alias ls='ls -G -1'\
   # support text editors
   alias rmate='mate' &&\
   alias mate='/usr/local/bin/mate -w' &&\
