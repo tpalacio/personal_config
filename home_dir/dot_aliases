@@ -30,8 +30,7 @@ _myos="$(uname)"
 case $_myos in
   # make ls pretty
   Linux) alias ls='ls --color -1';;
-  Darwin) alias ls='ls -G -1'\
-  # support text editors
+  Darwin) alias ls='ls -G -1' &&\
   alias rmate='mate' &&\
   alias mate='/usr/local/bin/mate -w' &&\
   alias subl='/opt/homebrew/bin/subl -w' &&\
