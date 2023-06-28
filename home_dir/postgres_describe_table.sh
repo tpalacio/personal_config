@@ -3,7 +3,7 @@ source ~/.aliases
 
 clear && read -p "Table name?
 " TABLENAME \
-&& echo -e $TABLENAME":" > ~/postgres_describe_table.tmp \
+&& echo $TABLENAME":" > ~/postgres_describe_table.tmp \
 && echo "
     select column_name, data_type from dbt_prod.unbound_views where st = '$TABLENAME' order by ordinal_position;
     select column_name, data_type from dbt_prod.bound_views where st = '$TABLENAME' order by ordinal_position;
