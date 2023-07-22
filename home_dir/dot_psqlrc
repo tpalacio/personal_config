@@ -1,6 +1,6 @@
 -- SET SESSION AUTOCOMMIT = ON;
--- SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public; --, "$user";
-SET SEARCH_PATH = public, popshop, analytics, dbt_thoren
+-- SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public, lightspeed, shopify; --, "$user";
+SET SEARCH_PATH = public, dbt_prod, dbt_thoren, pg_catalog, heap_production, main_bigcommerce, tj_dwh_prod, heap_replica, tj_shopify_staging, rudderstack_poc, data
 
 -- default format settings -- timing format is a little different in psql
 -- \set pager '\\pset pager'
@@ -27,7 +27,7 @@ SET SEARCH_PATH = public, popshop, analytics, dbt_thoren
 \set HISTSIZE 2000
 
 -- output settings
-\set o_start '\\set QUIET \\set output output_mode \\pset footer off \\pset format unaligned \\f \'\\t\'  \\unset QUIET \\o '
+\set o_start '\\set QUIET \\set output output_mode \\pset footer off \\pset format csv \\pset csv_fieldsep , \\unset QUIET \\o '
 \set o_end '\\o ; \\set QUIET \\pset footer on \\unset output ' :align_default :delimiter_default '\\unset QUIET'
 
 -- expanded display prompt
