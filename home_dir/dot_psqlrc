@@ -5,6 +5,7 @@ SET SEARCH_PATH = public, dbt_prod, dbt_thoren, pg_catalog, heap_production, mai
 -- default format settings -- timing format is a little different in psql
 -- \set pager '\\pset pager'
 -- :pager
+\setenv PAGER pspg
 \pset pager always
 \set time_default '\\timing'
 :time_default
