@@ -1,6 +1,6 @@
 -- SET SESSION AUTOCOMMIT = ON;
 -- SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public, lightspeed, shopify; --, "$user";
-SET SEARCH_PATH = public, dbt_prod, dbt_thoren, pg_catalog, heap_production, main_bigcommerce, tj_dwh_prod, heap_replica, tj_shopify_staging, rudderstack_poc, data
+SET SEARCH_PATH = public, dbt_prod, pg_catalog
 
 -- default format settings -- timing format is a little different in psql
 -- \set pager '\\pset pager'
@@ -36,3 +36,8 @@ SET SEARCH_PATH = public, dbt_prod, dbt_thoren, pg_catalog, heap_production, mai
 \set xoff '\\unset expanded \\x'
 
 \set i `echo "\! source ~/execute_query_with_email.sh" ` ' '
+
+-- Switch pagers with :x and :xx commands
+\set x '\\setenv PAGER less'
+\set xx '\\setenv PAGER \'pspg -bX --no-mouse\''
+:xx

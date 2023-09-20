@@ -1,0 +1,49 @@
+template = 6
+template_menu = 6
+
+/* PC Fand theme */
+background = PspgLightGray, PspgBlack, 0
+data = PspgLightGray, PspgBlack, 0
+border = PspgLightGray, PspgBlack, 0
+label = PspgBrightCyan, PspgBlack, 0
+rownum = PspgLightGray, PspgBlack, 0
+recnum = PspgLightGray, PspgBlue, A_BOLD
+footer = PspgCyan, PspgBlack, 0
+
+cursor_data = PspgWhite, PspgBlue, 0
+cursor_border = PspgLightGray, PspgBlue, 0
+cursor_label = PspgWhite, PspgBlue, 0
+cursor_rownum = PspgWhite, PspgBlue, 0
+cursor_recnum = PspgWhite, PspgBlue, 0
+cursor_footer = PspgWhite, PspgBlue, 0
+
+scrollbar_arrows = PspgLightGray, PspgBlack, A_REVERSE
+scrollbar_background = PspgBlack, PspgWhite, 0
+scrollbar_slider = PspgBlue, PspgBlack, 0
+scrollbar_active_slider = PspgBlue, PspgWhite, 0
+
+title = PspgBlack, PspgCyan, 0
+status_bar = PspgBlack, PspgCyan, 0
+prompt_bar = PspgBlack, PspgCyan, 0
+info_bar = PspgWhite, PspgBlue, 0
+error_bar = PspgWhite, PspgRed, 0
+input_bar = PspgWhite, PspgBlack, 0
+
+bookmark = PspgWhite, PspgRed, A_BOLD
+bookmark_border = PspgWhite, PspgRed, 0
+cursor_bookmark = PspgRed, PspgWhite, A_BOLD
+
+cross_cursor = PspgWhite, PspgCyan, 0
+cross_cursor_border = PspgLightGray, PspgCyan, 0
+
+selection = PspgBlack, PspgBrightCyan, 0
+cursor_selection = PspgBlack, PspgWhite, 0
+
+pattern = PspgYellow, PspgGreen, A_BOLD
+pattern_nohl = PspgYellow, PspgBlack, 0
+pattern_line = PspgBlack, PspgGreen, 0
+pattern_line_border = PspgLightGray, PspgGreen, 0
+pattern_cursor = PspgBrightCyan, PspgBlue, 0
+
+pattern_line_vertical_cursor = PspgBlack, PspgBrightGreen, 0
+pattern_line_vertical_cursor_border = PspgLightGray, PspgBrightGreen, 0
