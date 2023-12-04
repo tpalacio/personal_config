@@ -21,7 +21,7 @@ export GIT_EDITOR='emacs -nw'
 # should be same as passing -a '' https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR=""
 
-PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin:/home/thoren/.local/bin:$PATH
+PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$PATH
 
 export PATH
 
@@ -85,6 +85,11 @@ find_and_open_yaml() {
     ack --type yaml -l "$1" | xargs emacsclient -nw -a ''
 }
 
+# find and open yaml in textmate
+find_and_open_yaml_mate() {
+    ack --type yaml -l "$1" | xargs mate -w
+}
+
 # add brew to path
 if [[ $(uname -s) == Darwin ]]
 then
@@ -105,6 +110,10 @@ then
     done
   fi
 fi
+
+# export aws keys to env variables
+export DBT_ENV_AWS_ACCESS_KEY=`aws configure get default.aws_access_key_id --profile dbt-cloud`
+export DBT_ENV_AWS_SECRET_KEY=`aws configure get default.aws_secret_access_key --profile dbt-cloud`
 
 # disable apple warning message about zsh
 export BASH_SILENCE_DEPRECATION_WARNING=1
