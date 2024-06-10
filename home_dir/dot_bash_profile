@@ -15,13 +15,13 @@ fi
 
 # export EDITOR='/usr/local/bin/sublime -w'
 
-export EDITOR='emacs -nw'
-export GIT_EDITOR='emacs -nw'
+export EDITOR='emacsclient -nw'
+export GIT_EDITOR='emacsclient -nw'
 
 # should be same as passing -a '' https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
-export ALTERNATE_EDITOR=""
+export ALTERNATE_EDITOR="''"
 
-PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$PATH
+PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.10/bin:$HOME/.local/bin:$PATH
 
 export PATH
 
@@ -63,13 +63,19 @@ export PS1="$blue\u $purple@ \h$green\$(__git_ps1)$blue \W $ $reset"
 source ~/git-completion.bash
 
 # Copy the resulting url to the clipboard
-alias gist='gist -c -p -R'
+alias gistp='gist -c -p -R'
 
 # dbt tab completion
 source ~/.dbt-completion.bash
 
-# find and open in emacs
+# find and open in editor
 find_and_open() {
+    if [[ ${1:0:1} == "^" ]] ; then pattern_match="" && kw="${1:1}"; else pattern_match="*" && kw="$1"; fi
+    find . -type f \( -iname "$pattern_match$kw*" ! -iname "*.yml" \) | xargs $EDITOR -a $ALTERNATE_EDITOR
+}
+
+# find and open in emacs
+find_and_open_emacs() {
     if [[ ${1:0:1} == "^" ]] ; then pattern_match="" && kw="${1:1}"; else pattern_match="*" && kw="$1"; fi
     find . -type f \( -iname "$pattern_match$kw*" ! -iname "*.yml" \) | xargs emacsclient -nw -a ''
 }
@@ -80,8 +86,18 @@ find_and_open_mate() {
     find . -type f \( -iname "$pattern_match$kw*" ! -iname "*.yml" \) | xargs mate -w
 }
 
-# find and open yaml in emacs
+find_and_open_test() {
+    if [[ ${1:0:1} == "^" ]] ; then pattern_match="" && kw="${1:1}"; else pattern_match="*" && kw="$1"; fi
+    find . -type f \( -iname "$pattern_match$kw*" ! -iname "*.yml" \) | xargs $EDITOR_VAL
+}
+
+# find and open yaml in editor
 find_and_open_yaml() {
+    ack --type yaml -l "$1" | xargs $EDITOR -a $ALTERNATE_EDITOR
+}
+
+# find and open yaml in emacs
+find_and_open_yaml_emacs() {
     ack --type yaml -l "$1" | xargs emacsclient -nw -a ''
 }
 
