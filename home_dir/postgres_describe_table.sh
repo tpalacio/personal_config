@@ -3,14 +3,15 @@ source ~/.aliases
 
 clear && read -p "Table name?
 " TABLENAME \
-&& echo $TABLENAME":" > ~/postgres_describe_table.tmp \
+&& echo $TABLENAME"," > ~/postgres_describe_table.csv \
 && echo "
-    select column_name, data_type from dbt_prod.unbound_views where st = '$TABLENAME' order by ordinal_position;
-    select column_name, data_type from dbt_prod.bound_views where st = '$TABLENAME' order by ordinal_position;
-    select column_name, data_type from dbt_prod.external_views where st = '$TABLENAME' order by ordinal_position;
+    select column_name, data_type from dbt_prod.unbound_views where st = replace('$TABLENAME', chr(34), '') order by ordinal_position;
+    select column_name, data_type from dbt_prod.bound_views where st = replace('$TABLENAME', chr(34), '') order by ordinal_position;
+    select column_name, data_type from dbt_prod.external_views where st = replace('$TABLENAME', chr(34), '') order by ordinal_position;
 " > table_name.tmp \
-&& dw_root -X -t -f table_name.tmp >> ~/postgres_describe_table.tmp \
+&& dw_root -X --csv -t -f table_name.tmp >> ~/postgres_describe_table.csv \
 && clear \
-&& less ~/postgres_describe_table.tmp ;
-rm ~/postgres_describe_table.tmp ;
+&& pspg --csv --csv-header on ~/postgres_describe_table.csv ;
+rm ~/postgres_describe_table.csv ;
 rm ~/table_name.tmp
+# && dw_root -X -t -f table_name.tmp >> ~/postgres_describe_table.csv \
