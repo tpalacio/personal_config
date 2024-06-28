@@ -372,6 +372,7 @@
 (delete 'Git vc-handled-backends)
 
 ;; send region to tmux buffer
+(setq exec-path (cons "/opt/homebrew/bin/" exec-path))
 (defvar tmux-send-hist nil)
 (defun tmux-send (&optional no-new-line)
   "Send selected region or currently-surrounding blank line-separated \
@@ -543,7 +544,7 @@ Version 2015-03-24"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(csv csv-mode yaml-mode projectile auto-complete dumb-jump slime multiple-cursors color-theme-solarized col-highlight cl-lib ack-and-a-half)))
+   '(json-navigator csv csv-mode yaml-mode projectile auto-complete dumb-jump slime multiple-cursors color-theme-solarized col-highlight cl-lib ack-and-a-half)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -665,3 +666,8 @@ be ignored, too."
       (set-selective-display
        (if selective-display nil (or col 1))))))
 (global-set-key [(M C i)] 'aj-toggle-fold)
+
+
+;; hierarchy and tree mode (makes json-navigator prettier)
+(require 'hierarchy)
+(require 'tree-mode)

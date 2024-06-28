@@ -7,7 +7,7 @@ alias dw_root='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U r
 alias dw_root_bi='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U root -d bi -p 5439'
 alias dw_dbt='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U dbt_user -d dev -p 5439'
 alias dw_dbt_bi='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U dbt_user -d bi -p 5439'
-alias mysql='mysql -h tj-aurora.co4b2y8p3rb6.us-east-1.rds.amazonaws.com -u root -D shopify_staging -A'
+alias mysql='mysql --defaults-extra-file=~/dev/.mylogin.cnf -h tj-aurora.co4b2y8p3rb6.us-east-1.rds.amazonaws.com -u root -D shopify_staging -A'
 alias e='emacs'
 # alias emacs="emacsclient -nw -a ''"
 alias emacs="emacsclient -nw"
@@ -27,8 +27,14 @@ alias faoy='find_and_open_yaml'
 alias env_dbt='source ~/py-env/dbt-env/bin/activate'
 alias dbt_env='env_dbt'
 alias dbt='env_dbt && dbt'
+alias env_jupyter='source ~/py-env/jupyter-env/bin/activate'
+alias jupyter_env='env_jupyter'
 # alias ssh_dbt='ssh thoren@34.121.208.41'
 alias tm='tmux new-session -A -s main -c ~/'
+alias alais='alias'
+
+# EC2s
+alias ssh_ns_int='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/sh-ns-int-etl.pem -R 52685:localhost:52685 ubuntu@54.163.237.191'
 
 # OS specific aliasing
 _myos="$(uname)"
