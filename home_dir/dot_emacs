@@ -372,7 +372,9 @@
 (delete 'Git vc-handled-backends)
 
 ;; send region to tmux buffer
-(setq exec-path (cons "/opt/homebrew/bin/" exec-path))
+(add-to-list 'exec-path "/opt/homebrew/bin/")
+(setenv "PATH" "/opt/homebrew/bin/:~/bin/:/usr/bin/:/usr/local/bin/:/usr/local/lib/:~/.local/bin/")
+
 (defvar tmux-send-hist nil)
 (defun tmux-send (&optional no-new-line)
   "Send selected region or currently-surrounding blank line-separated \
