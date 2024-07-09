@@ -21,9 +21,14 @@ export GIT_EDITOR='emacsclient -nw'
 # should be same as passing -a '' https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR="''"
 
-PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.10/bin:$HOME/.local/bin:$PATH
-
+PATH=$PATH:$HOME/bin:/usr/local/lib:$HOME/Library/Python/3.10/bin:$HOME/.local/bin
 export PATH
+
+# add brew to path
+if [[ $(uname -s) == Darwin ]]
+then
+    eval $(/opt/homebrew/bin/brew shellenv)
+fi
 
 # psql is defaulting to show LESS when printing results which can't be copied via tmux
 
@@ -105,12 +110,6 @@ find_and_open_yaml_emacs() {
 find_and_open_yaml_mate() {
     ack --type yaml -l "$1" | xargs mate -w
 }
-
-# add brew to path
-if [[ $(uname -s) == Darwin ]]
-then
-    eval $(/opt/homebrew/bin/brew shellenv)
-fi
 
 # set up brew completion
 if type brew &>/dev/null
