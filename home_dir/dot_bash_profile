@@ -129,6 +129,7 @@ fi
 # export aws keys to env variables
 export DBT_ENV_AWS_ACCESS_KEY=`aws configure get default.aws_access_key_id --profile dbt-cloud`
 export DBT_ENV_AWS_SECRET_KEY=`aws configure get default.aws_secret_access_key --profile dbt-cloud`
+export DBT_STATE='prod'
 
 # disable apple warning message about zsh
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -138,3 +139,5 @@ eval "$(starship init bash)"
 
 # add support for forgit
 [ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh
+# forgit settings
+export FORGIT_CHECKOUT_BRANCH_BRANCH_GIT_OPTS='--sort=-committerdate'
