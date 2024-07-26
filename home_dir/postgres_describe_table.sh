@@ -1,7 +1,7 @@
 shopt -s expand_aliases
 source ~/.aliases
 
-clear && read -p "Table name?
+clear && read -e -p "Table name?
 " TABLENAME \
 && echo $TABLENAME"," > ~/postgres_describe_table.csv \
 && echo "
