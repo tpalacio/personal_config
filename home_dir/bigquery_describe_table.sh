@@ -1,4 +1,4 @@
-clear && read -p "Table name?
+clear && read -e -p "Table name?
 " TABLENAME && echo -e $TABLENAME":" > ~/bigquery_describe_table.tmp && \
 echo "select c, data_type from system.columns where st = '$TABLENAME';" > table_name.tmp && \
 bq query --use_legacy_sql=false < table_name.tmp \
