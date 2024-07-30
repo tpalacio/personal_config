@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Make history NUL separated, then Call fzf to pick one query
+fzf_out="$( perl -0 -pe 's/;/;\0/gm' |
+  fzf --read0 --ansi --layout reverse --multi --highlight-line --height 100% )"
+
+# If in tmux put the line from history into terminal, as if typed
+if [[ "${TMUX_PANE}" =~ ^%[0-9]+$ ]]
+then
+    # Escape trailing semicolon
+    fzf_out="$( sed 's/;$/\\;/' <<< "${fzf_out}" )"
+
+    tmux send-keys -t "${TMUX_PANE}" "${fzf_out}"
+else
+    # If not, just print it to screen
+    printf '%s\n' "${fzf_out}"
+fi
