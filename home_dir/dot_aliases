@@ -32,6 +32,7 @@ alias jupyter_env='env_jupyter'
 # alias ssh_dbt='ssh thoren@34.121.208.41'
 alias tm='tmux new-session -A -s main -c ~/'
 alias alais='alias'
+alias fzfe="fzf --multi --bind 'enter:become(emacs {+})' --preview 'bat --color=always {}'"
 
 # EC2s
 alias ssh_ns_int='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/sh-ns-int-etl.pem -R 52685:localhost:52685 ubuntu@54.163.237.191'

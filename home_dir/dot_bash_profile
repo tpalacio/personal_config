@@ -137,7 +137,32 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # add starship
 eval "$(starship init bash)"
 
+# Set up fzf key bindings and fuzzy completion
+# eval "$(fzf --bash)"
+# disable ctrl-t
+FZF_CTRL_T_COMMAND= eval "$(fzf --bash)"
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target,dbt_packages
+  --preview 'tree -C {}'"
+
+# Open in tmux popup if on tmux, otherwise use --height mode
+# export FZF_DEFAULT_OPTS='--height 40% --tmux bottom,40% --layout reverse --border top'
+export FZF_DEFAULT_OPTS='--height 40% --layout reverse --border top'
+# add various applications to the fzf completion
+_fzf_setup_completion path mate
+_fzf_setup_completion path subl
+_fzf_setup_completion path dbt
+
+
 # add support for forgit
 [ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh
 # forgit settings
 export FORGIT_CHECKOUT_BRANCH_BRANCH_GIT_OPTS='--sort=-committerdate'
+export FORGIT_FZF_DEFAULT_OPTS="
+--exact
+--reverse
+--border
+--cycle
+--height '75%'
+"
