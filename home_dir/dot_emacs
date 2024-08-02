@@ -625,6 +625,7 @@ be ignored, too."
 (setq projectile-sort-order 'modification-time)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (global-set-key (kbd "C-c C-f") 'projectile-find-file-dwim-other-window)
+(add-to-list 'projectile-globally-ignored-directories "*models/exposures")
 
 ;; yaml
 (require 'yaml-mode)
@@ -688,18 +689,25 @@ be ignored, too."
 (setq syntax-subword-skip-spaces t)
 
 ;; dbt: replace ref() with schema
-(defun replace-dbt-ref ()
+(defun replace-dbt-ref-with-schema ()
   "Replace {{ ref('<some_string>') }} with $1.<some_string> in the buffer."
   (interactive)
   (let ((default-input "dbt_prod"))
-  (let ((input (read-string "Enter the value for $1: " default-input)))
+  (let ((input (read-string "Enter target schema: " default-input)))
     (goto-char (point-min))
     (while (re-search-forward "{{\\s-*ref([\"']\\([^\"']+\\)[\"'])\\s-*}}" nil t)
       (replace-match (concat input "." (match-string 1)))))))
 
-(global-set-key (kbd "C-c r") 'replace-dbt-ref)
+(global-set-key (kbd "C-c r") 'replace-dbt-ref-with-schema)
 
-;; {{ ref('test') }}
-;; {{ref('test')}}
-;; {{ ref("test") }}
-;; {{ref("test")}}
+;; dbt: replace hardcoded schema with ref()
+(defun replace-schema-with-dbt-ref ()
+  "Replace all instances of DBT_SCHEMA.table with {{ ref('table') }} in the current buffer."
+  (interactive)
+  (let ((default-input "dbt_prod"))
+  (let ((input (read-string "Enter target schema: " default-input)))
+    (goto-char (point-min))
+    (while (re-search-forward (concat input "\\.\\([a-zA-Z_][a-zA-Z0-9_]*\\)\\( \\|$\\)") nil t)
+      (replace-match "{{ ref('\\1') }}\\2")))))
+
+(global-set-key (kbd "C-c R") 'replace-schema-with-dbt-ref)
