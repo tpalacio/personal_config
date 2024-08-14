@@ -1,11 +1,15 @@
 -- SET SESSION AUTOCOMMIT = ON;
 -- SET SEARCH_PATH =  v_catalog, analytics, etl, rtrbi, public, lightspeed, shopify; --, "$user";
-SET SEARCH_PATH = public, dbt_prod, pg_catalog
+SET SEARCH_PATH = public, dbt_prod, pg_catalog, tj_data_science_prod; -- , ab_klaviyo_staging
+set enable_case_sensitive_identifier to true;
 
 -- default format settings -- timing format is a little different in psql
 -- \set pager '\\pset pager'
 -- :pager
 \setenv PAGER pspg
+\pset border 1
+\pset linestyle ascii
+-- \pset linestyle unicode
 \pset pager always
 \set time_default '\\timing'
 :time_default
@@ -25,7 +29,7 @@ SET SEARCH_PATH = public, dbt_prod, pg_catalog
 \set PROMPT2 '>'
 -- \set PROMPT2 '%:output:%x> ' -- the output variable is set by o_start
 -- \set PROMPT2 '%:expanded:%:output:%x> ' -- the output variable is set by o_start
-\set HISTSIZE 2000
+\set HISTSIZE 10000
 
 -- output settings
 \set o_start '\\set QUIET \\set output output_mode \\pset footer off \\pset format csv \\pset csv_fieldsep , \\unset QUIET \\o '

@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-# Make history NUL separated, then Call fzf to pick one query
-fzf_out="$( perl -0 -pe 's/;/;\0/gm' |
-  fzf --read0 --ansi --layout reverse --multi --highlight-line --height 100% )"
+# Make history NUL separated for:
+# 1) lines which start with \ (e.g. \i file.sql)
+# and 2) where a semicolon is detected
+# then Call fzf to grab selected query(s)
+fzf_out="$( perl -pe 's/^(\\.*)/$1\0/gm' | perl -0 -pe 's/;/;\0/gm' |
+  fzf --read0 --ansi --layout reverse --multi --highlight-line --height 100% --cycle )"
 
 # If in tmux put the line from history into terminal, as if typed
 if [[ "${TMUX_PANE}" =~ ^%[0-9]+$ ]]

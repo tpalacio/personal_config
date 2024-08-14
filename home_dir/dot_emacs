@@ -67,9 +67,8 @@
 ;; Deletes trailing whitespace when saving
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; ;; Linum-Mode and add space after the number
-;; (require 'linum)
-;; (global-linum-mode t)
+;; enable line number mode
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Get rid of menu bar
 (menu-bar-mode 0)
@@ -149,14 +148,21 @@
 
 ;; highlight current line (seems to have issues with xterm settings)
 ;; change hl-line color
-;; (require 'hl-line)
+(require 'hl-line)
 ;; (set-face-background 'hl-line "gray13")
 ;; (global-hl-line-mode)
+(global-hl-line-mode 1)
+(set-face-background 'highlight "#222")
+(set-face-foreground 'highlight nil)
+;; (set-face-underline-p 'highlight t)
+(set-face-attribute hl-line-face nil :underline t)
 
-;; highlight current line (different, but works fine)
-(require 'highlight-current-line)
-(highlight-current-line-on t)
-(set-face-background 'highlight-current-line-face "gray13")
+;; highlight current line (different, but works fine) ;; originally gray13
+;; (require 'highlight-current-line)
+;; (highlight-current-line-on t)
+;; ;; (set-face-foreground 'highlight-current-line-face "cyan")
+;; (set-face-background 'highlight-current-line-face "gray13")
+
 
 ;; ;; highlight current column ;; this made pasting text VERY slow!
 ;; (require 'col-highlight)
@@ -549,8 +555,9 @@ Version 2015-03-24"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+   ;; '(ack syntax-subword json-navigator csv csv-mode yaml-mode projectile auto-complete dumb-jump slime multiple-cursors)))
  '(package-selected-packages
-   '(ack syntax-subword json-navigator csv csv-mode yaml-mode projectile auto-complete dumb-jump slime multiple-cursors color-theme-solarized col-highlight cl-lib)))
+   '(ack syntax-subword json-navigator csv csv-mode yaml-mode projectile auto-complete dumb-jump multiple-cursors)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -711,3 +718,47 @@ be ignored, too."
       (replace-match "{{ ref('\\1') }}\\2")))))
 
 (global-set-key (kbd "C-c R") 'replace-schema-with-dbt-ref)
+
+;; ;; split comma delimited region onto new lines
+;; (defun split-region-on-commas (start end)
+;;   "Split the region delimited by START and END on commas, putting each item on a new line."
+;;   (interactive "r")
+;;   (save-excursion
+;;     (goto-char start)
+;;     ;; Insert a newline at the beginning of the region
+;;     (insert "\n")
+;;     ;; Adjust end position to account for inserted newline
+;;     (setq end (+ end 1))
+;;     (while (search-forward "," end t)
+;;       (replace-match ",\n"))
+;;     (goto-char start)
+;;     (while (re-search-forward "\\s-+" end t)
+;;       (replace-match ""))
+;;     ;; Ensure the region remains selected
+;;     (set-mark start)
+;;     (goto-char end)
+;;     (setq deactivate-mark nil)))
+
+(defun split-region-on-commas (start end)
+  "Split the region delimited by START and END on commas, putting each item on a new line."
+  (interactive "r")
+  (let ((default-delimiter ","))
+  (let ((delimiter (read-string "Enter delimiter: " default-delimiter)))
+  (save-excursion
+    (goto-char start)
+    ;; Insert a newline at the beginning of the region
+    (insert "\n")
+    ;; Adjust end position to account for inserted newline
+    (setq start (+ start 1))
+    (setq end (+ end 1))
+    (while (search-forward delimiter end t)
+      (replace-match (concat delimiter "\n")))
+    (goto-char start)
+    (while (re-search-forward "\\s-+" end t)
+      (replace-match ""))
+    ;; Ensure the region remains selected
+    (set-mark start)
+    (goto-char end)
+    (setq deactivate-mark nil)))))
+
+(global-set-key (kbd "C-c s") 'split-region-on-commas)

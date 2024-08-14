@@ -18,6 +18,11 @@ fi
 export EDITOR='emacsclient -nw'
 export GIT_EDITOR='emacsclient -nw'
 
+# kill emacs function
+kill_emacs() {
+    kill -9 $(ps aux | grep -E "emacs" | awk '{print $2}')
+}
+
 # should be same as passing -a '' https://stackoverflow.com/questions/5570451/how-to-start-emacs-server-only-if-it-is-not-started
 export ALTERNATE_EDITOR="''"
 
@@ -154,11 +159,11 @@ _fzf_setup_completion path mate
 _fzf_setup_completion path subl
 _fzf_setup_completion path dbt
 
-
 # add support for forgit
 [ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh
 # forgit settings
 export FORGIT_CHECKOUT_BRANCH_BRANCH_GIT_OPTS='--sort=-committerdate'
+export FORGIT_STASH_FZF_OPTS='--bind="ctrl-d:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"'
 export FORGIT_FZF_DEFAULT_OPTS="
 --exact
 --reverse
@@ -166,3 +171,5 @@ export FORGIT_FZF_DEFAULT_OPTS="
 --cycle
 --height '75%'
 "
+# not working
+# export FORGIT_BRANCH_DELETE_GIT_OPTS='--sort=-committerdate'
