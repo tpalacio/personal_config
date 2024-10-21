@@ -571,7 +571,7 @@ Version 2015-03-24"
 ;; (global-set-key (kbd "C-c g") 'dumb-jump-go)
 ;; (global-set-key (kbd "C-c p") 'dumb-jump-back)
 ;; newer
-(global-set-key (kbd "C-c g") 'xref-find-definitions)
+;; (global-set-key (kbd "C-c g") 'xref-find-definitions)
 (global-set-key (kbd "C-c p") 'xref-pop-marker-stack)
 
 ;; hide/show a block of code (based on pair of balanced-expression code blocks or multi-line comment blocks)
@@ -718,6 +718,17 @@ be ignored, too."
       (replace-match "{{ ref('\\1') }}\\2")))))
 
 (global-set-key (kbd "C-c R") 'replace-schema-with-dbt-ref)
+
+
+(defun sql-group-order-by-prompt ()
+  "Prompt the user for a number and insert SQL GROUP BY and ORDER BY clauses into the current buffer."
+  (interactive)
+  (let* ((n (read-number "Enter a number: "))
+         (numbers (mapconcat 'number-to-string (number-sequence 1 n) ",")))
+    (insert (concat "group by " numbers "\norder by " numbers "\n"))))
+
+(global-set-key (kbd "C-c g") 'sql-group-order-by-prompt)
+
 
 ;; ;; split comma delimited region onto new lines
 ;; (defun split-region-on-commas (start end)
