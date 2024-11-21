@@ -25,8 +25,8 @@ echo $TABLENAME" ("$COLUMN"),count,min_id,max_id" > ~/query_uniqueness_results.c
     from data
     group by 1
     order by 1;
-" > query.tmp
-dw_root -X --csv -t -f query.tmp >> ~/query_uniqueness_results.csv \
+" > ~/query.tmp
+dw_root -X --csv -t -f ~/query.tmp >> ~/query_uniqueness_results.csv \
 && clear \
 && pspg --csv --csv-separator , --csv-header on --no-mouse ~/query_uniqueness_results.csv ;
 rm ~/query_uniqueness_results.csv ;
