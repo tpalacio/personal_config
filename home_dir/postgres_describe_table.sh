@@ -1,8 +1,12 @@
+#!/bin/bash
+history -r ~/history__describe_table
 shopt -s expand_aliases
 source ~/.aliases
 
 clear && read -e -p "Table name?
 " TABLENAME \
+&& history -s "$TABLENAME" \
+&& history -w ~/history__describe_table \
 && echo $TABLENAME"," > ~/postgres_describe_table.csv \
 && echo "
     select column_name, data_type from dbt_prod.unbound_views where st = replace('$TABLENAME', chr(34), '') order by ordinal_position;
