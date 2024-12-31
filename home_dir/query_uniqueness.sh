@@ -20,7 +20,7 @@ clear && read -e -p "Filter?
 " FILTER \
 && history -s "$FILTER" \
 && history -w ~/history__query_uniqueness__filter \
-&& history -c \
+&& history -c
 FILTER="${FILTER:-True}"
 echo $TABLENAME" ("$COLUMN"),count,min_id,max_id" > ~/query_uniqueness_results.csv
 echo "
