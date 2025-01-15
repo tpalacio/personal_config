@@ -8,6 +8,7 @@ alias dw_root_bi='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -
 alias dw_dbt='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U dbt_user -d dev -p 5439'
 alias dw_dbt_bi='psql -h tj-dwh.cuqlvskmdbmy.us-east-1.redshift.amazonaws.com -U dbt_user -d bi -p 5439'
 alias mysql='mysql --defaults-extra-file=~/dev/.mylogin.cnf -h tj-aurora.co4b2y8p3rb6.us-east-1.rds.amazonaws.com -u root -D shopify_staging -A'
+alias mysql_airbyte='mysql --defaults-extra-file=~/dev/.mysql_login__airbyte.cnf -h tj-aurora.co4b2y8p3rb6.us-east-1.rds.amazonaws.com -u airbyte_user -D crm_staging -A'
 alias e='emacs'
 # alias emacs="emacsclient -nw -a ''"
 alias emacs="emacsclient -nw"
@@ -36,10 +37,16 @@ alias jupyter_env='env_jupyter'
 # alias ssh_dbt='ssh thoren@34.121.208.41'
 alias tm='tmux new-session -A -s main -c ~/'
 alias alais='alias'
-alias fzfe="fzf --multi --bind 'enter:become(emacs {+})' --preview 'bat -n --color=always {}'"
+alias fzfe="fzf --multi --bind 'enter:become(emacs {+})' --preview 'bat -n --color=always {}' --history=/Users/thorenpalacio/.fzf_history"
 
 # EC2s
 alias ssh_ns_int='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/sh-ns-int-etl.pem -R 52685:localhost:52685 ubuntu@54.163.237.191'
+alias ssh_mdm='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/tj-edw-integration.pem -R 52685:localhost:52685 ubuntu@44.213.7.233'
+alias ssh_ns_prod='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/tj-new-shopify-talend.pem -R 52685:localhost:52685 ubuntu@3.231.199.138'
+alias ssh_edw_prod='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/tj-edw-prod.pem -R 52685:localhost:52685 ubuntu@54.167.152.226'
+alias ssh_prodco='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/tj-edw-talend.pem -R 52685:localhost:52685 ubuntu@54.196.127.39'
+alias ssh_shopify_staging='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/tj-shopify-talend.pem -R 52685:localhost:52685 ubuntu@52.4.32.89'
+alias ssh_edw_monitoring='ssh -i /Users/thorenpalacio/dev/codes/tj_pem/tj-edw-monitoring.pem -R 52685:localhost:52685 ubuntu@34.238.170.161'
 
 # OS specific aliasing
 _myos="$(uname)"
