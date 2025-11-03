@@ -6,6 +6,11 @@ source ~/.aliases
 # ls as case-insensitive
 shopt -s nocaseglob
 
+# Make login shells pick up interactive settings
+if [ -r ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
@@ -116,25 +121,27 @@ find_and_open_yaml_mate() {
     ack --type yaml -l "$1" | xargs mate -w
 }
 
-# set up brew completion
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-  fi
-fi
+# # set up brew completion
+# if type brew &>/dev/null
+# then
+#   HOMEBREW_PREFIX="$(brew --prefix)"
+#   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+#   then
+#     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+#   else
+#     for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+#     do
+#       [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+#     done
+#   fi
+# fi
 
-# export aws keys to env variables
-export DBT_ENV_AWS_ACCESS_KEY=`aws configure get default.aws_access_key_id --profile dbt-cloud`
-export DBT_ENV_AWS_SECRET_KEY=`aws configure get default.aws_secret_access_key --profile dbt-cloud`
-export DBT_STATE='prod'
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
+# # export aws keys to env variables
+# export DBT_ENV_AWS_ACCESS_KEY=`aws configure get default.aws_access_key_id --profile dbt-cloud`
+# export DBT_ENV_AWS_SECRET_KEY=`aws configure get default.aws_secret_access_key --profile dbt-cloud`
+# export DBT_STATE='prod'
 
 # disable apple warning message about zsh
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -159,20 +166,31 @@ _fzf_setup_completion path mate
 _fzf_setup_completion path subl
 _fzf_setup_completion path dbt
 
-# add support for forgit
-[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.sh
-# forgit settings
+# # forgit settings
+# moved to ~/.bashrc
+# settings added here will be read by interactive bash shells, and also by login shells (see .bash_profile)
+
+# --- forgit settings (must be exported BEFORE sourcing the plugin) ---
 export FORGIT_CHECKOUT_BRANCH_BRANCH_GIT_OPTS='--sort=-committerdate'
-export FORGIT_STASH_FZF_OPTS='--bind="ctrl-d:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"'
-export FORGIT_FZF_DEFAULT_OPTS="
---exact
---reverse
---border
---cycle
---height '75%'
-"
+
+# use $'...' so we don't carry literal quotes into the value
+export FORGIT_STASH_FZF_OPTS=$'--bind=ctrl-d:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)'
+
+# either one-line or multi-line; avoid quoting the % as a string
+export FORGIT_FZF_DEFAULT_OPTS=$'--exact --reverse --border --cycle --height=75%'
+
+# FORGIT_INSTALL_DIR is optional for Homebrew installs; harmless to keep
+export FORGIT_INSTALL_DIR="$HOME/.forgit"
+
 # not working
 # export FORGIT_BRANCH_DELETE_GIT_OPTS='--sort=-committerdate'
+
+# load forgit (Homebrew bash plugin) and suppress its startup warnings only
+if [ -r "$(brew --prefix)/opt/forgit/share/forgit/forgit.plugin.sh" ]; then
+  # send only the plugin's *stderr* to /dev/null (keeps normal output and your env intact)
+  source "$(brew --prefix)/opt/forgit/share/forgit/forgit.plugin.sh" 2>/dev/null
+fi
+
 
 # fix starship character encoding
 export LANG="en_US.UTF-8"
